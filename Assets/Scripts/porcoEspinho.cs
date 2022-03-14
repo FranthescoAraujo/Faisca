@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class porcoEspinho : MonoBehaviour
 {
-    //Função Andar
     public Rigidbody2D Rigidbody2DPorcoEspinho;
     public SpriteRenderer SpriteRendererPorcoEspinho;
     public float velocidade = 0.01f;
@@ -12,18 +11,10 @@ public class porcoEspinho : MonoBehaviour
     public Vector3 PosicaoInicial;
     public float distanciaFinal = 5.0f;
     public float distanciaInicial = -5.0f;
-
-    //Função Lancar
     public float velocidadeX = 5.0f;
-
-    //Animator
     private Animator Animacao;
-
     public int vidas = 4;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
@@ -33,7 +24,6 @@ public class porcoEspinho : MonoBehaviour
         Lancar();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Andar();

@@ -6,77 +6,50 @@ using UnityEngine.SceneManagement;
 
 public class personagem : MonoBehaviour
 {
-	//Função Mover
 	public Rigidbody2D Rigidbody2DPersonagem;
 	public float velocidade;
-
-	//Função Rotacionar
+	public float VELOCIDADE_MOVIMENTO = 500f;
 	public SpriteRenderer SpriteRendererPersonagem;
-
-	//Função Pular
 	public int quantidadePulo = 0;
 	public float meuTempoPulo = 0;
 	public bool podePular = true;
-
-	//Função VerificarCaindo
+	public float ALTURA_PULO = 400f;
 	public float auxCaindo = 0;
 	public float tempoAux = 0;
-
-	//Animator
 	private Animator Animacao;
-
-	//Função AtaqueBoomerang
 	public GameObject Boomerang;
 	public float tempoAnimacaoAtaque = 0;
 	public bool podeAtacarBoomerang = true;
 	public float tempoAtaque = 0;
-
-	//Função Ataque
 	public GameObject Ataque;
-
-	//Função Dano
 	public int vidaPersonagem = 5;
 	public float meuTempoDano = 0;
 	public bool podeTomarDano = true;
-
-	//Função Vida HUD
 	public int numCoracao = 5;
-
 	public Image[] coracao;
 	public Sprite coracaoSprite;
 	public Sprite semCoracaoSprite;
-
 	private int quantidadeMoedas = 0;
 	private int quantidadeVidas = 3;
 	private Text MoedaTexto;
 	private Text VidasTexto;
-
 	public GameObject GameObjectCheckPoint;
 	public int atualCheckPoint = 0;
 	public Vector3 coordenadasCheckPoint;
-
 	public Color alpha;
 	public bool morreu = false;
-
 	private gerenciadorJogo GJ;
-
-	//Start is called before the first frame update
 
 	void Start()
 	{
-
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
-
 		coordenadasCheckPoint = new Vector3(-9.57f, -3.54f, 0);
 		transform.position = coordenadasCheckPoint;
 		Animacao = GetComponent<Animator>();
 		MoedaTexto = GameObject.FindGameObjectWithTag("MoedaTexto").GetComponent<Text>();
 		VidasTexto = GameObject.FindGameObjectWithTag("VidasTexto").GetComponent<Text>();
 		VidasTexto.text = quantidadeVidas.ToString("00");
-		
 	}
-
-	//Update is called once per frame
 
 	void Update()
 	{
@@ -93,12 +66,10 @@ public class personagem : MonoBehaviour
 			Vida();
 		}
 	}
-
 	void Mover()
 	{
-		velocidade = Input.GetAxis("Horizontal") * 5;
+		velocidade = Input.GetAxis("Horizontal") * VELOCIDADE_MOVIMENTO * Time.deltaTime;
 		Rigidbody2DPersonagem.velocity = new Vector2(velocidade, Rigidbody2DPersonagem.velocity.y);
-
 		if (velocidade != 0)
 		{
 			Animacao.SetBool("Andando", true);
@@ -120,7 +91,6 @@ public class personagem : MonoBehaviour
 			SpriteRendererPersonagem.flipX = true;
 		}
 	}
-
 	void Pular()
 	{
 		if (Input.GetKeyDown(KeyCode.W) && podePular == true)
@@ -130,7 +100,7 @@ public class personagem : MonoBehaviour
 			if (quantidadePulo <= 2)
 			{
 				Rigidbody2DPersonagem.velocity = new Vector2(velocidade, 0);
-				Rigidbody2DPersonagem.AddForce(transform.up * 500f);
+				Rigidbody2DPersonagem.AddForce(transform.up * ALTURA_PULO);
 			}
 			if (quantidadePulo == 1)
 			{
@@ -145,7 +115,6 @@ public class personagem : MonoBehaviour
 			TemporizadorPulo();
 		}
 	}
-
 	void OnTriggerEnter2D(Collider2D trigger)
 	{
 		if (trigger.gameObject.tag == "Ground")
@@ -181,7 +150,6 @@ public class personagem : MonoBehaviour
 			}
 		}
 	}
-
 	void TemporizadorPulo()
 	{
 		meuTempoPulo += Time.deltaTime;
@@ -192,8 +160,6 @@ public class personagem : MonoBehaviour
 		}
 	}
 
-	//Boomerang
-
 	void AtaqueBoomerang()
 	{
 		if (Input.GetKeyDown(KeyCode.Mouse0) && podeAtacarBoomerang == true)
@@ -201,7 +167,6 @@ public class personagem : MonoBehaviour
 			Animacao.SetBool("Ataque", true);
 			if (SpriteRendererPersonagem.flipX == false)
 			{
-
 				Vector3 pontoBoomerang = new Vector3(Rigidbody2DPersonagem.transform.position.x + 0.5f, Rigidbody2DPersonagem.transform.position.y, Rigidbody2DPersonagem.transform.position.z);
 				GameObject BoomerangDisparo = Instantiate(Boomerang, pontoBoomerang, Quaternion.identity);
 			}
@@ -222,7 +187,6 @@ public class personagem : MonoBehaviour
 			Animacao.SetBool("Ataque", true);
 			if (SpriteRendererPersonagem.flipX == false)
 			{
-
 				Vector3 pontoBoomerang = new Vector3(Rigidbody2DPersonagem.transform.position.x + 1f, Rigidbody2DPersonagem.transform.position.y, Rigidbody2DPersonagem.transform.position.z);
 				GameObject DisparoAtaque = Instantiate(Ataque, pontoBoomerang, Quaternion.identity);
 				Destroy(DisparoAtaque, 0.3f);
@@ -236,7 +200,6 @@ public class personagem : MonoBehaviour
 			}
 		}
 	}
-
 	void TemporizadorAnimacaoAtaque()
 	{
 		if (Animacao.GetBool("Ataque") == true)
@@ -262,8 +225,6 @@ public class personagem : MonoBehaviour
 			}
 		}
 	}
-
-	//Dano
 
 	void Dano()
 	{
@@ -307,7 +268,6 @@ public class personagem : MonoBehaviour
 			}
 		}
 	}
-
 	void TemporizadorDano()
 	{
 		meuTempoDano += Time.deltaTime;
@@ -319,8 +279,6 @@ public class personagem : MonoBehaviour
 			SpriteRendererPersonagem.material.color = alpha;
 		}
 	}
-
-	//Vida
 
 	void Vida()
 	{
@@ -351,8 +309,6 @@ public class personagem : MonoBehaviour
 		}
 	}
 
-	//Morte
-	
 	void Morrer()
 	{
 		quantidadeVidas--;
@@ -366,7 +322,6 @@ public class personagem : MonoBehaviour
 			GJ.PersonagemMorreu();
 		}
 	}
-
 	void Inicializar()
 	{
 		transform.position = coordenadasCheckPoint;

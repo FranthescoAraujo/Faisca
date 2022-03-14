@@ -6,20 +6,12 @@ using UnityEngine.SceneManagement;
 public class gerenciadorJogo : MonoBehaviour
 {
     public bool gameLigado = false;
-
     public GameObject TelaGameOver;
 
-    // Start is called before the first frame update
     void Start()
     {
         gameLigado = false;
         Time.timeScale = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public bool EstadoJogo()

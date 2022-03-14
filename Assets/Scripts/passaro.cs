@@ -4,36 +4,24 @@ using UnityEngine;
 
 public class passaro : MonoBehaviour
 {
-	//Função Andar
 	private SpriteRenderer SpriteRendererPassaro;
 	private Vector3 PosicaoInicial;
-	public float velocidade = 0.01f;
+	public float velocidade = 1f;
 	public float distanciaInicial = -10.0f;
 	public float distanciaFinal = 10.0f;
-
-	//Animator
 	private Animator Animacao;
-
-	//Função Ovo
 	public float tempo = 0;
 	public GameObject Ovo;
-
 	public int vidas = 2;
-
 	private gerenciadorJogo GJ;
-
-	//Start is called before the first frame update
 
 	void Start()
 	{
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
-
 		Animacao = GetComponent<Animator>();
 		SpriteRendererPassaro = GetComponent<SpriteRenderer>();
 		PosicaoInicial = transform.position;
 	}
-
-	//Update is called once per frame
 
 	void Update()
 	{
@@ -46,8 +34,7 @@ public class passaro : MonoBehaviour
 
 	void Andar()
 	{
-		transform.position = new Vector3(transform.position.x + velocidade, transform.position.y, transform.position.z);
-
+		transform.position = new Vector3(transform.position.x + velocidade * Time.deltaTime, transform.position.y, transform.position.z);
 		if (transform.position.x > (PosicaoInicial.x + distanciaFinal))
 		{
 			velocidade = -Mathf.Abs(velocidade);

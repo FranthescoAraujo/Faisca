@@ -5,24 +5,30 @@ using UnityEngine;
 public class camera : MonoBehaviour
 {
 	public GameObject GameObjectPersonagem;
-
-	//Start is called before the first frame update
+	public float VELOCIDADE_CAMERA = 0.5f;
 
 	void Start()
 	{
 		transform.position = new Vector3(GameObjectPersonagem.transform.position.x, GameObjectPersonagem.transform.position.y + 0.5f, transform.position.z);
 	}
 
-	//Update is called once per frame
-
 	void Update()
 	{
 		Seguir();
+		PersonagemMorreu();
 	}
 
 	void Seguir()
 	{
 		Vector3 seguirPersonagem = new Vector3(GameObjectPersonagem.transform.position.x, GameObjectPersonagem.transform.position.y + 0.5f, transform.position.z);
-		transform.position = Vector3.MoveTowards(transform.position, seguirPersonagem, 0.1f);
+		transform.position = Vector3.MoveTowards(transform.position, seguirPersonagem, VELOCIDADE_CAMERA);
 	}
+
+	void PersonagemMorreu()
+    {
+		if (GameObjectPersonagem.GetComponent<personagem>().morreu)
+        {
+			transform.position = new Vector3(GameObjectPersonagem.transform.position.x, GameObjectPersonagem.transform.position.y + 0.5f, transform.position.z);
+		}
+    }
 }

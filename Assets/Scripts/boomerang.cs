@@ -4,35 +4,21 @@ using UnityEngine;
 
 public class boomerang : MonoBehaviour
 {
-    //Função DistanciaMaxima
     public float distanciaMaxima = 5.0f;
     public float aux = 0;
-
-    //Função Lancar
     public Rigidbody2D Rigidbody2DBoomerang;
-
-    //Função PrimeiraPosicao
     public Vector3 posicao;
-
-    //Função CapturarMouse
     public Vector3 mouse;
-
-    //Função VelocidadeXY
     public float velocidade = 10.0f;
     public float velocidadeX = 0;
     public float velocidadeY = 0;
-
-    //Função CalcularAngulos
     private Rigidbody2D Rigidbody2DPersonagem;
     public bool isVolta = false;
     public float catetoOposto = 0;
     public float catetoAdjacente = 0;
     public float hipotenusa = 0;
-
-    //Função Trigger
     public float contador = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
@@ -44,7 +30,6 @@ public class boomerang : MonoBehaviour
         Lancar();    
     }
 
-    // Update is called once per frame
     void Update()
     {
         DistanciaMaxima();

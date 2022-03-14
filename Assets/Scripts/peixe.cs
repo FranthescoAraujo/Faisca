@@ -4,38 +4,26 @@ using UnityEngine;
 
 public class peixe : MonoBehaviour
 {
-	//Função Andar
 	private SpriteRenderer SpriteRendererPeixe;
 	private Vector3 PosicaoInicial;
 	public float velocidade = 0.01f;
 	public float distanciaInicial = -3.0f;
 	public float distanciaFinal = 3.0f;
-
-	//Função Pular
 	public float distanciaPulo = 4f;
 	public float tempo = 0;
 	public float velocidadePulo = 0.02f;
 	public bool pulando = false;
-
 	public int vidas = 2;
-
-	//Animator
 	private Animator Animacao;
-
 	private gerenciadorJogo GJ;
-
-	//Start is called before the first frame update
 
 	void Start()
 	{
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
-
 		Animacao = GetComponent<Animator>();
 		SpriteRendererPeixe = GetComponent<SpriteRenderer>();
 		PosicaoInicial = transform.position;
 	}
-
-	//Update is called once per frame
 
 	void Update()
 	{
@@ -50,7 +38,6 @@ public class peixe : MonoBehaviour
 	{
 		Animacao.SetBool("Pulando", false);
 		transform.position = new Vector3(transform.position.x + velocidade, transform.position.y, transform.position.z);
-
 		if (transform.position.x > (PosicaoInicial.x + distanciaFinal))
 		{
 			velocidade = -Mathf.Abs(velocidade);
