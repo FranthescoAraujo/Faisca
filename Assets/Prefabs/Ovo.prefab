@@ -149,7 +149,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.13}
+  m_Offset: {x: 0, y: -0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -182,6 +182,7 @@ MonoBehaviour:
   aux: 0
   quebrarOvo: 0
   time: 1
+  timePerseguir: 0
   noChao: 0
 --- !u!95 &9064397072610313527
 Animator:

@@ -30,7 +30,7 @@ public class personagem : MonoBehaviour
 	public Sprite coracaoSprite;
 	public Sprite semCoracaoSprite;
 	private int quantidadeMoedas = 0;
-	private int quantidadeVidas = 3;
+	public int quantidadeVidas = 3;
 	private Text MoedaTexto;
 	private Text VidasTexto;
 	public GameObject GameObjectCheckPoint;
@@ -102,10 +102,14 @@ public class personagem : MonoBehaviour
 				Rigidbody2DPersonagem.velocity = new Vector2(velocidade, 0);
 				Rigidbody2DPersonagem.AddForce(transform.up * ALTURA_PULO);
 			}
-			if (quantidadePulo == 1)
+			if (quantidadePulo == 0)
+            {
+				Animacao.SetInteger("Pulando", 0);
+			}
+			else if (quantidadePulo == 1)
 			{
 				Animacao.SetInteger("Pulando", 1);
-			} else if (quantidadePulo >= 2)
+			} else if (quantidadePulo == 2)
 			{
 				Animacao.SetInteger("Pulando", 2);
 			}
@@ -144,10 +148,7 @@ public class personagem : MonoBehaviour
 		}
 		if (trigger.gameObject.tag == "Agua")
 		{
-			if (morreu == false)
-            {
-				Morrer();
-			}
+			Morrer();
 		}
 	}
 	void TemporizadorPulo()
@@ -238,6 +239,8 @@ public class personagem : MonoBehaviour
 	{
 		if (colisao.gameObject.tag == "Inimigo")
 		{
+			quantidadePulo = 0;
+			meuTempoPulo = 0;
 			if (podeTomarDano == true)
 			{
 				vidaPersonagem--;
@@ -311,26 +314,30 @@ public class personagem : MonoBehaviour
 
 	void Morrer()
 	{
-		quantidadeVidas--;
-		destroirOvos();
-		VidasTexto.text = quantidadeVidas.ToString("00");
-		if (quantidadeVidas > 0)
-		{
-			Inicializar();
-		}
-		else
-		{
-			GJ.PersonagemMorreu();
+		if (!morreu)
+        {
+			morreu = true;
+			quantidadeVidas--;
+			destruirOvos();
+			VidasTexto.text = quantidadeVidas.ToString("00");
+			if (quantidadeVidas > 0)
+			{
+				Inicializar();
+			}
+			else
+			{
+				GJ.PersonagemMorreu();
+			}
 		}
 	}
-	void Inicializar()
+	public void Inicializar()
 	{
 		transform.position = coordenadasCheckPoint;
 		vidaPersonagem = 5;
-		morreu = true;
+		morreu = false;
 	}
 
-	void destroirOvos()
+	public void destruirOvos()
 	{
 		GameObject[] ovos = GameObject.FindGameObjectsWithTag("Ovo");
 		foreach (GameObject ovo in ovos)

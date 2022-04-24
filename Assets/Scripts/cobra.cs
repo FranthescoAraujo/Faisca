@@ -16,7 +16,9 @@ public class cobra : MonoBehaviour
 	public float teste2 = 0;
 	private gerenciadorJogo GJ;
 	public int vidas = 3;
-
+	float meuTempoDano;
+	bool podeTomarDano = true;
+	Color alpha;
 	void Start()
 	{
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
@@ -30,6 +32,7 @@ public class cobra : MonoBehaviour
 		if (GJ.EstadoJogo() == true)
 		{
 			Movimento();
+			Dano();
 		}
 	}
 
@@ -83,12 +86,39 @@ public class cobra : MonoBehaviour
 	{
 		if (colisao.gameObject.tag == "DestroyBoomerang")
 		{
-			Destroy(colisao.gameObject);
-			vidas--;
-			if (vidas <= 0)
+			if (podeTomarDano)
 			{
-				Destroy(this.gameObject);
-			}	
+				podeTomarDano = false;
+				Destroy(colisao.gameObject);
+				alpha = GetComponent<SpriteRenderer>().material.color;
+				alpha.a = 0.5f;
+				GetComponent<SpriteRenderer>().material.color = alpha;
+				vidas--;
+				if (vidas <= 0)
+				{
+					Destroy(this.gameObject);
+				}
+			}
+		}
+	}
+
+	void Dano()
+	{
+		if (!podeTomarDano)
+		{
+			TemporizadorDano();
+		}
+	}
+
+	void TemporizadorDano()
+	{
+		meuTempoDano += Time.deltaTime;
+		if (meuTempoDano > 0.5f)
+		{
+			podeTomarDano = true;
+			meuTempoDano = 0;
+			alpha.a = 1f;
+			GetComponent<SpriteRenderer>().material.color = alpha;
 		}
 	}
 }

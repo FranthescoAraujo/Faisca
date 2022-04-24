@@ -15,7 +15,9 @@ public class passaro : MonoBehaviour
 	public GameObject personagem;
 	public int vidas = 2;
 	private gerenciadorJogo GJ;
-
+	float meuTempoDano;
+	bool podeTomarDano = true;
+	Color alpha;
 	void Start()
 	{
 		personagem = GameObject.FindGameObjectWithTag("Personagem");
@@ -31,6 +33,7 @@ public class passaro : MonoBehaviour
 		{
 			Andar();
 			iniciarAtaqueDistanciaMaximaAlvo();
+			Dano();
 		}
 	}
 
@@ -69,11 +72,18 @@ public class passaro : MonoBehaviour
 	{
 		if (colisao.gameObject.tag == "DestroyBoomerang")
 		{
-			Destroy(colisao.gameObject);
-			vidas--;
-			if (vidas <= 0)
+			if (podeTomarDano)
 			{
-				Destroy(this.gameObject);
+				podeTomarDano = false;
+				Destroy(colisao.gameObject);
+				alpha = GetComponent<SpriteRenderer>().material.color;
+				alpha.a = 0.5f;
+				GetComponent<SpriteRenderer>().material.color = alpha;
+				vidas--;
+				if (vidas <= 0)
+				{
+					Destroy(this.gameObject);
+				}
 			}
 		}
 	}
@@ -82,6 +92,26 @@ public class passaro : MonoBehaviour
 		if (Vector2.Distance(transform.position, personagem.transform.position) <= 30f)
         {
 			TempoOvo();
+		}
+	}
+
+	void Dano()
+	{
+		if (!podeTomarDano)
+		{
+			TemporizadorDano();
+		}
+	}
+
+	void TemporizadorDano()
+	{
+		meuTempoDano += Time.deltaTime;
+		if (meuTempoDano > 0.5f)
+		{
+			podeTomarDano = true;
+			meuTempoDano = 0;
+			alpha.a = 1f;
+			GetComponent<SpriteRenderer>().material.color = alpha;
 		}
 	}
 }

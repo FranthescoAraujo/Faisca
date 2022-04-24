@@ -14,9 +14,14 @@ public class porcoEspinho : MonoBehaviour
     public float velocidadeX = 5.0f;
     private Animator Animacao;
     public int vidas = 4;
+    float meuTempoDano;
+    private gerenciadorJogo GJ;
+    bool podeTomarDano = true;
+    Color alpha;
 
     void Start()
     {
+        GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         SpriteRendererPorcoEspinho = GetComponent<SpriteRenderer>();
         Rigidbody2DPorcoEspinho = GetComponent<Rigidbody2D>();
@@ -26,7 +31,11 @@ public class porcoEspinho : MonoBehaviour
 
     void Update()
     {
-        Andar();
+        if (GJ.EstadoJogo() == true)
+        {
+            Andar();
+            Dano();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D trigger)
@@ -78,12 +87,39 @@ public class porcoEspinho : MonoBehaviour
     {
         if (colisao.gameObject.tag == "DestroyBoomerang")
         {
-            Destroy(colisao.gameObject);
-            vidas--;
-            if (vidas <= 0)
+            if (podeTomarDano)
             {
-                Destroy(this.gameObject);
+                podeTomarDano = false;
+                Destroy(colisao.gameObject);
+                alpha = GetComponent<SpriteRenderer>().material.color;
+                alpha.a = 0.5f;
+                GetComponent<SpriteRenderer>().material.color = alpha;
+                vidas--;
+                if (vidas <= 0)
+                {
+                    Destroy(this.gameObject);
+                }
             }
+        }
+    }
+
+    void Dano()
+    {
+        if (!podeTomarDano)
+        {
+            TemporizadorDano();
+        }
+    }
+
+    void TemporizadorDano()
+    {
+        meuTempoDano += Time.deltaTime;
+        if (meuTempoDano > 0.5f)
+        {
+            podeTomarDano = true;
+            meuTempoDano = 0;
+            alpha.a = 1f;
+            GetComponent<SpriteRenderer>().material.color = alpha;
         }
     }
 }

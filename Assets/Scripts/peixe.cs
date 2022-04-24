@@ -16,6 +16,9 @@ public class peixe : MonoBehaviour
 	public int vidas = 2;
 	private Animator Animacao;
 	private gerenciadorJogo GJ;
+	float meuTempoDano;
+	bool podeTomarDano = true;
+	Color alpha;
 
 	void Start()
 	{
@@ -31,6 +34,7 @@ public class peixe : MonoBehaviour
 		{
 			AndarOuPular();
 			TempoPular();
+			Dano();
 		}
 	}
 
@@ -88,12 +92,39 @@ public class peixe : MonoBehaviour
 	{
 		if (colisao.gameObject.tag == "DestroyBoomerang")
 		{
-			Destroy(colisao.gameObject);
-			vidas--;
-			if (vidas <= 0)
-			{
-				Destroy(this.gameObject);
+			if (podeTomarDano)
+            {
+				podeTomarDano = false;
+				Destroy(colisao.gameObject);
+				alpha = GetComponent<SpriteRenderer>().material.color;
+				alpha.a = 0.5f;
+				GetComponent<SpriteRenderer>().material.color = alpha;
+				vidas--;
+				if (vidas <= 0)
+				{
+					Destroy(this.gameObject);
+				}
 			}
+		}
+	}
+
+	void Dano()
+	{
+		if (!podeTomarDano)
+		{
+			TemporizadorDano();
+		}
+	}
+
+	void TemporizadorDano()
+	{
+		meuTempoDano += Time.deltaTime;
+		if (meuTempoDano > 0.5f)
+		{
+			podeTomarDano = true;
+			meuTempoDano = 0;
+			alpha.a = 1f;
+			GetComponent<SpriteRenderer>().material.color = alpha;
 		}
 	}
 }

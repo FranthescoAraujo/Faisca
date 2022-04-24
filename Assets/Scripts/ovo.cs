@@ -95,4 +95,12 @@ public class ovo : MonoBehaviour
 			Animacao.SetBool("Girando", true);
 		}
 	}
+
+	void OnTriggerExit2D(Collider2D trigger)
+	{
+		if (trigger.gameObject.tag == "Ground")
+		{
+			Destroy(this.gameObject);
+		}
+	}
 }

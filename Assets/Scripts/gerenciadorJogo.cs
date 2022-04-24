@@ -7,11 +7,13 @@ public class gerenciadorJogo : MonoBehaviour
 {
     public bool gameLigado = false;
     public GameObject TelaGameOver;
+    public personagem personagem;
 
     void Start()
     {
         gameLigado = false;
         Time.timeScale = 0;
+        personagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<personagem>();
     }
 
     public bool EstadoJogo()
@@ -23,11 +25,12 @@ public class gerenciadorJogo : MonoBehaviour
     {
         gameLigado = true;
         Time.timeScale = 1;
+        TelaGameOver.SetActive(false);
     }
 
     public void PersonagemMorreu()
     {
-        destroirOvos();
+        personagem.destruirOvos();
         TelaGameOver.SetActive(true);
         gameLigado = false;
         Time.timeScale = 0;
@@ -41,14 +44,5 @@ public class gerenciadorJogo : MonoBehaviour
     public void Fechar()
     {
         Application.Quit();
-    }
-
-    void destroirOvos()
-    {
-        GameObject[] ovos = GameObject.FindGameObjectsWithTag("Ovo");
-        foreach (GameObject ovo in ovos)
-        {
-            Destroy(ovo);
-        }
     }
 }
