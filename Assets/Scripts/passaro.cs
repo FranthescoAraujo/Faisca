@@ -12,11 +12,13 @@ public class passaro : MonoBehaviour
 	private Animator Animacao;
 	public float tempo = 0;
 	public GameObject Ovo;
+	public GameObject personagem;
 	public int vidas = 2;
 	private gerenciadorJogo GJ;
 
 	void Start()
 	{
+		personagem = GameObject.FindGameObjectWithTag("Personagem");
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
 		Animacao = GetComponent<Animator>();
 		SpriteRendererPassaro = GetComponent<SpriteRenderer>();
@@ -28,7 +30,7 @@ public class passaro : MonoBehaviour
 		if (GJ.EstadoJogo() == true)
 		{
 			Andar();
-			TempoOvo();
+			iniciarAtaqueDistanciaMaximaAlvo();
 		}
 	}
 
@@ -50,7 +52,7 @@ public class passaro : MonoBehaviour
 	void TempoOvo()
 	{
 		tempo += Time.deltaTime;
-		if (tempo >= 3.0f)
+		if (tempo >= 5.0f)
 		{
 			AtaqueOvo();
 			tempo = 0;
@@ -73,6 +75,13 @@ public class passaro : MonoBehaviour
 			{
 				Destroy(this.gameObject);
 			}
+		}
+	}
+	void iniciarAtaqueDistanciaMaximaAlvo()
+	{
+		if (Vector2.Distance(transform.position, personagem.transform.position) <= 30f)
+        {
+			TempoOvo();
 		}
 	}
 }

@@ -27,6 +27,7 @@ public class gerenciadorJogo : MonoBehaviour
 
     public void PersonagemMorreu()
     {
+        destroirOvos();
         TelaGameOver.SetActive(true);
         gameLigado = false;
         Time.timeScale = 0;
@@ -42,4 +43,12 @@ public class gerenciadorJogo : MonoBehaviour
         Application.Quit();
     }
 
+    void destroirOvos()
+    {
+        GameObject[] ovos = GameObject.FindGameObjectsWithTag("Ovo");
+        foreach (GameObject ovo in ovos)
+        {
+            Destroy(ovo);
+        }
+    }
 }

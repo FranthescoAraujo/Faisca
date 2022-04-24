@@ -10,12 +10,14 @@ public class ovo : MonoBehaviour
 	Vector3 posicaoInicial;
 	Vector3 posicaoInicialPersonagem;
 	public float velocidade = 0.02f;
-	public float distanciaMaxima = 10.0f;
+	public float distanciaMaxima = 5.0f;
 	public float aux = 0;
 	public bool quebrarOvo = false;
-	public float time = 1.0f;
+	public float time;
+	public float timePerseguir;
 	public bool noChao = false;
 	private Animator Animacao;
+	private float velocidadeMaxima = -6f;
 
 	void Start()
 	{
@@ -30,10 +32,15 @@ public class ovo : MonoBehaviour
 
 	void Update()
 	{
+
 		if (noChao == true)
 		{
 			Stop();
 		}
+        else
+        {
+			Rigidbody2DOvo.velocity = new Vector2(Rigidbody2DOvo.velocity.x, velocidadeMaxima);
+        }
 	}
 
 	void Perseguir()
@@ -53,7 +60,8 @@ public class ovo : MonoBehaviour
 	void Stop()
 	{
 		aux = Mathf.Abs(posicaoInicial.x - Rigidbody2DOvo.transform.position.x);
-		if (Mathf.Abs(posicaoInicial.x - Rigidbody2DOvo.transform.position.x) >= distanciaMaxima)
+		TempoPerseguir();
+		if (Mathf.Abs(posicaoInicial.x - Rigidbody2DOvo.transform.position.x) >= distanciaMaxima || timePerseguir >= 3.0f)
 		{
 			Tempo();
 			Animacao.SetBool("Quebrado", true);
@@ -72,6 +80,11 @@ public class ovo : MonoBehaviour
 	void Tempo()
 	{
 		time += Time.deltaTime;
+	}
+
+	void TempoPerseguir()
+    {
+		timePerseguir += Time.deltaTime;
 	}
 
 	void OnTriggerEnter2D(Collider2D trigger)

@@ -312,6 +312,7 @@ public class personagem : MonoBehaviour
 	void Morrer()
 	{
 		quantidadeVidas--;
+		destroirOvos();
 		VidasTexto.text = quantidadeVidas.ToString("00");
 		if (quantidadeVidas > 0)
 		{
@@ -327,5 +328,14 @@ public class personagem : MonoBehaviour
 		transform.position = coordenadasCheckPoint;
 		vidaPersonagem = 5;
 		morreu = true;
+	}
+
+	void destroirOvos()
+	{
+		GameObject[] ovos = GameObject.FindGameObjectsWithTag("Ovo");
+		foreach (GameObject ovo in ovos)
+		{
+			Destroy(ovo);
+		}
 	}
 }
