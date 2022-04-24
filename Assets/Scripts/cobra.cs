@@ -20,7 +20,6 @@ public class cobra : MonoBehaviour
 	void Start()
 	{
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
-
 		PosicaoInicial = transform.position;
 		Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
 		SpriteRendererCobra = GetComponent<SpriteRenderer>();
@@ -38,10 +37,8 @@ public class cobra : MonoBehaviour
 	{
 		{
 			transform.position = new Vector3(transform.position.x + velocidade * Time.deltaTime, transform.position.y, transform.position.z);
-
 			teste = PosicaoInicial.x + distanciaFinal;
 			teste2 = PosicaoInicial.x + distanciaInicial;
-
 			if (transform.position.x > (PosicaoInicial.x + distanciaFinal))
 			{
 				velocidade = -Mathf.Abs(velocidade);
@@ -58,7 +55,6 @@ public class cobra : MonoBehaviour
 	void Perseguir()
 	{
 		transform.position = new Vector3(transform.position.x + velocidadeProximo * Time.deltaTime, transform.position.y, transform.position.z);
-
 		if (transform.position.x > Rigidbody2DPersonagem.transform.position.x)
 		{
 			velocidadeProximo = -Mathf.Abs(velocidadeProximo);
@@ -73,7 +69,6 @@ public class cobra : MonoBehaviour
 
 	void Movimento()
 	{
-
 		if (Mathf.Abs(transform.position.x - Rigidbody2DPersonagem.transform.position.x) <= distanciaMinima)
 		{
 			Perseguir();

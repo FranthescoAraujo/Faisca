@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ovo : MonoBehaviour
 {
-	//Função Perseguir
 	public Rigidbody2D Rigidbody2DOvo;
 	public Rigidbody2D Rigidbody2DPersonagem;
 	public SpriteRenderer SpriteRendererOvo;
@@ -12,22 +11,12 @@ public class ovo : MonoBehaviour
 	Vector3 posicaoInicialPersonagem;
 	public float velocidade = 0.02f;
 	public float distanciaMaxima = 10.0f;
-
 	public float aux = 0;
-
-	//Função Stop
 	public bool quebrarOvo = false;
-
-	//Função Tempo
 	public float time = 1.0f;
-
-	//Função Trigger
 	public bool noChao = false;
-
-	//Animator
 	private Animator Animacao;
 
-	// Start is called before the first frame update
 	void Start()
 	{
 		Animacao = GetComponent<Animator>();
@@ -39,7 +28,6 @@ public class ovo : MonoBehaviour
 		posicaoInicialPersonagem = Rigidbody2DPersonagem.transform.position;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		if (noChao == true)
@@ -64,7 +52,6 @@ public class ovo : MonoBehaviour
 
 	void Stop()
 	{
-
 		aux = Mathf.Abs(posicaoInicial.x - Rigidbody2DOvo.transform.position.x);
 		if (Mathf.Abs(posicaoInicial.x - Rigidbody2DOvo.transform.position.x) >= distanciaMaxima)
 		{

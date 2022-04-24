@@ -4,31 +4,22 @@ using UnityEngine;
 
 public class gorila : MonoBehaviour
 {
-    //Função Lancar
     public Rigidbody2D Rigidbody2DPersonagem;
     public float distancia = 15.0f;
     public bool lancou = false;
     public GameObject Coco;
-
-    //Animator
     private Animator Animacao;
-
     public int vidas = 10;
     public float tempoCoco = 0;
-
     private gerenciadorJogo GJ;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
-
         Animacao = GetComponent<Animator>();
         Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (GJ.EstadoJogo() == true)
@@ -45,8 +36,6 @@ public class gorila : MonoBehaviour
             {
                 Vector3 posicaoCoco = new Vector3(transform.position.x + 0.8f, transform.position.y + 0.8f, transform.position.z);
                 GameObject LancarCoco = Instantiate(Coco, posicaoCoco, Quaternion.identity);
-
-
             }
         }
     }
@@ -60,13 +49,11 @@ public class gorila : MonoBehaviour
             Lancar();
             Lancar();
             tempoCoco = 0;
-
         }
         else if (tempoCoco >= (0.4f * vidas))
         {
             Animacao.SetBool("JogaCoco", false);
         }
- 
     }
 
     private void OnCollisionEnter2D(Collision2D colisao)
