@@ -60,12 +60,12 @@ public class cobra : MonoBehaviour
 	void Perseguir()
 	{
 		transform.position = new Vector3(transform.position.x + velocidadeProximo * Time.deltaTime, transform.position.y, transform.position.z);
-		if (transform.position.x > Rigidbody2DPersonagem.transform.position.x + 4f)
+		if (transform.position.x > Rigidbody2DPersonagem.transform.position.x)
 		{
 			velocidadeProximo = -Mathf.Abs(velocidadeProximo);
 			SpriteRendererCobra.flipX = true;
 		}
-		else if (transform.position.x < Rigidbody2DPersonagem.transform.position.x + 4f)
+		else if (transform.position.x < Rigidbody2DPersonagem.transform.position.x)
 		{
 			velocidadeProximo = Mathf.Abs(velocidadeProximo);
 			SpriteRendererCobra.flipX = false;
