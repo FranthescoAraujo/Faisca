@@ -10,9 +10,11 @@ public class mato : MonoBehaviour
     public GameObject PorcoEspinho;
     private Animator Animacao;
     private gerenciadorJogo GJ;
+    public GameObject personagem;
 
     void Start()
     {
+        personagem = GameObject.FindGameObjectWithTag("Personagem");
         GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
         Animacao = GetComponent<Animator>();
         Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
@@ -22,7 +24,7 @@ public class mato : MonoBehaviour
     {
         if (GJ.EstadoJogo() == true)
         {
-            Lancar();
+            iniciarScriptsInimigo();
         }
     }
 
@@ -36,6 +38,12 @@ public class mato : MonoBehaviour
             Animacao.SetBool("Lancou", true);
         }
     }
-     
 
+    void iniciarScriptsInimigo()
+    {
+        if (Vector2.Distance(transform.position, personagem.transform.position) <= 15f)
+        {
+            Lancar();
+        }
+    }
 }

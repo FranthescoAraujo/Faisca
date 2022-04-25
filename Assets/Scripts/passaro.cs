@@ -31,9 +31,7 @@ public class passaro : MonoBehaviour
 	{
 		if (GJ.EstadoJogo() == true)
 		{
-			Andar();
-			iniciarAtaqueDistanciaMaximaAlvo();
-			Dano();
+			iniciarScriptsInimigo();
 		}
 	}
 
@@ -87,11 +85,13 @@ public class passaro : MonoBehaviour
 			}
 		}
 	}
-	void iniciarAtaqueDistanciaMaximaAlvo()
+	void iniciarScriptsInimigo()
 	{
 		if (Vector2.Distance(transform.position, personagem.transform.position) <= 30f)
         {
+			Andar();
 			TempoOvo();
+			Dano();
 		}
 	}
 

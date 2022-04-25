@@ -15,9 +15,11 @@ public class gorila : MonoBehaviour
     float meuTempoDano;
     bool podeTomarDano = true;
     Color alpha;
+    public GameObject personagem;
 
     void Start()
     {
+        personagem = GameObject.FindGameObjectWithTag("Personagem");
         GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
         Animacao = GetComponent<Animator>();
         Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
@@ -27,7 +29,7 @@ public class gorila : MonoBehaviour
     {
         if (GJ.EstadoJogo() == true)
         {
-            TempoLancar();
+            iniciarScriptsInimigo();
         }
     }
 
@@ -96,6 +98,14 @@ public class gorila : MonoBehaviour
             meuTempoDano = 0;
             alpha.a = 1f;
             GetComponent<SpriteRenderer>().material.color = alpha;
+        }
+    }
+
+    void iniciarScriptsInimigo()
+    {
+        if (Vector2.Distance(transform.position, personagem.transform.position) <= 35f)
+        {
+            TempoLancar();
         }
     }
 }

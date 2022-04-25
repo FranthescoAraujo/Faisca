@@ -19,9 +19,11 @@ public class peixe : MonoBehaviour
 	float meuTempoDano;
 	bool podeTomarDano = true;
 	Color alpha;
+	public GameObject personagem;
 
 	void Start()
 	{
+		personagem = GameObject.FindGameObjectWithTag("Personagem");
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
 		Animacao = GetComponent<Animator>();
 		SpriteRendererPeixe = GetComponent<SpriteRenderer>();
@@ -32,9 +34,7 @@ public class peixe : MonoBehaviour
 	{
 		if (GJ.EstadoJogo() == true)
 		{
-			AndarOuPular();
-			TempoPular();
-			Dano();
+			iniciarScriptsInimigo();
 		}
 	}
 
@@ -125,6 +125,16 @@ public class peixe : MonoBehaviour
 			meuTempoDano = 0;
 			alpha.a = 1f;
 			GetComponent<SpriteRenderer>().material.color = alpha;
+		}
+	}
+
+	void iniciarScriptsInimigo()
+	{
+		if (Vector2.Distance(transform.position, personagem.transform.position) <= 15f)
+		{
+			AndarOuPular();
+			TempoPular();
+			Dano();
 		}
 	}
 }

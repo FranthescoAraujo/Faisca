@@ -19,8 +19,11 @@ public class cobra : MonoBehaviour
 	float meuTempoDano;
 	bool podeTomarDano = true;
 	Color alpha;
+	public GameObject personagem;
+
 	void Start()
 	{
+		personagem = GameObject.FindGameObjectWithTag("Personagem");
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
 		PosicaoInicial = transform.position;
 		Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
@@ -31,8 +34,7 @@ public class cobra : MonoBehaviour
 	{
 		if (GJ.EstadoJogo() == true)
 		{
-			Movimento();
-			Dano();
+			iniciarScriptsInimigo();
 		}
 	}
 
@@ -58,12 +60,12 @@ public class cobra : MonoBehaviour
 	void Perseguir()
 	{
 		transform.position = new Vector3(transform.position.x + velocidadeProximo * Time.deltaTime, transform.position.y, transform.position.z);
-		if (transform.position.x > Rigidbody2DPersonagem.transform.position.x)
+		if (transform.position.x > Rigidbody2DPersonagem.transform.position.x + 4f)
 		{
 			velocidadeProximo = -Mathf.Abs(velocidadeProximo);
 			SpriteRendererCobra.flipX = true;
 		}
-		else if (transform.position.x < Rigidbody2DPersonagem.transform.position.x)
+		else if (transform.position.x < Rigidbody2DPersonagem.transform.position.x + 4f)
 		{
 			velocidadeProximo = Mathf.Abs(velocidadeProximo);
 			SpriteRendererCobra.flipX = false;
@@ -119,6 +121,15 @@ public class cobra : MonoBehaviour
 			meuTempoDano = 0;
 			alpha.a = 1f;
 			GetComponent<SpriteRenderer>().material.color = alpha;
+		}
+	}
+
+	void iniciarScriptsInimigo()
+	{
+		if (Vector2.Distance(transform.position, personagem.transform.position) <= 15f)
+		{
+			Movimento();
+			Dano();
 		}
 	}
 }
