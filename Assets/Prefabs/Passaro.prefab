@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 4714412031605947318, guid: 336a915d341fb1b42b7eaf048ed060c6,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -132,6 +132,7 @@ MonoBehaviour:
   distanciaFinal: 10
   tempo: 0
   Ovo: {fileID: 9064397072610313486, guid: 21c995a9f2f857c4992da0a3f52eb0c4, type: 3}
+  personagem: {fileID: 0}
   vidas: 2
 --- !u!95 &266865577146815515
 Animator:

@@ -66,7 +66,7 @@ public class passaro : MonoBehaviour
 		GameObject OvoDisparo = Instantiate(Ovo, pontoOvo, Quaternion.identity);
 	}
 
-	private void OnCollisionEnter2D(Collision2D colisao)
+	private void OnTriggerStay2D(Collider2D colisao)
 	{
 		if (colisao.gameObject.tag == "DestroyBoomerang")
 		{

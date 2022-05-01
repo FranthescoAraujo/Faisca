@@ -84,7 +84,7 @@ public class cobra : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter2D(Collision2D colisao)
+	private void OnTriggerStay2D(Collider2D colisao)
 	{
 		if (colisao.gameObject.tag == "DestroyBoomerang")
 		{

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class personagem : MonoBehaviour
@@ -29,10 +30,10 @@ public class personagem : MonoBehaviour
 	public Image[] coracao;
 	public Sprite coracaoSprite;
 	public Sprite semCoracaoSprite;
-	private int quantidadeMoedas = 0;
+	public int quantidadeMoedas = 0;
 	public int quantidadeVidas = 3;
-	private Text MoedaTexto;
-	private Text VidasTexto;
+	private TMP_Text MoedaTexto;
+	private TMP_Text VidasTexto;
 	public GameObject GameObjectCheckPoint;
 	public int atualCheckPoint = 0;
 	public Vector3 coordenadasCheckPoint;
@@ -46,8 +47,8 @@ public class personagem : MonoBehaviour
 		coordenadasCheckPoint = new Vector3(-9.57f, -3.54f, 0);
 		transform.position = coordenadasCheckPoint;
 		Animacao = GetComponent<Animator>();
-		MoedaTexto = GameObject.FindGameObjectWithTag("MoedaTexto").GetComponent<Text>();
-		VidasTexto = GameObject.FindGameObjectWithTag("VidasTexto").GetComponent<Text>();
+		MoedaTexto = GameObject.FindGameObjectWithTag("MoedaTexto").GetComponent<TMP_Text>();
+		VidasTexto = GameObject.FindGameObjectWithTag("VidasTexto").GetComponent<TMP_Text>();
 		VidasTexto.text = quantidadeVidas.ToString("00");
 	}
 
@@ -121,6 +122,29 @@ public class personagem : MonoBehaviour
 	}
 	void OnTriggerEnter2D(Collider2D trigger)
 	{
+		if (trigger.gameObject.tag == "Arvore")
+        {
+			trigger.gameObject.tag = "Untagged";
+			trigger.GetComponentsInChildren<SpriteRenderer>()[0].enabled = false;
+			trigger.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
+			trigger.GetComponentInChildren<Animator>().enabled = true;
+			GJ.atualizarCorFundo();
+		}
+		if (trigger.gameObject.tag == "Bush")
+		{
+			trigger.gameObject.tag = "Untagged";
+			trigger.GetComponentsInChildren<SpriteRenderer>()[0].enabled = false;
+			trigger.GetComponentsInChildren<Animator>()[0].enabled = false;
+			trigger.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
+			trigger.GetComponentsInChildren<Animator>()[1].enabled = true;
+			GJ.atualizarCorFundo();
+		}
+		if (trigger.gameObject.tag == "Inimigo")
+        {
+			quantidadePulo = 0;
+			meuTempoPulo = 0;
+			Animacao.SetInteger("Pulando", 0);
+		}
 		if (trigger.gameObject.tag == "Ground")
 		{
 			quantidadePulo = 0;
@@ -131,7 +155,8 @@ public class personagem : MonoBehaviour
 		{
 			Destroy(trigger.gameObject);
 			quantidadeMoedas++;
-			MoedaTexto.text = quantidadeMoedas.ToString("000000000");
+			aumentaQuantidadeVidas();
+			MoedaTexto.text = quantidadeMoedas.ToString("000");
 		}
 		if (trigger.gameObject.tag == "CheckPoint")
 		{
@@ -239,8 +264,6 @@ public class personagem : MonoBehaviour
 	{
 		if (colisao.gameObject.tag == "Inimigo")
 		{
-			quantidadePulo = 0;
-			meuTempoPulo = 0;
 			if (podeTomarDano == true)
 			{
 				vidaPersonagem--;
@@ -345,4 +368,14 @@ public class personagem : MonoBehaviour
 			Destroy(ovo);
 		}
 	}
+
+	private void aumentaQuantidadeVidas()
+    {
+		if (quantidadeMoedas >= 100)
+        {
+			quantidadeVidas += 1;
+			VidasTexto.text = quantidadeVidas.ToString("00");
+			quantidadeMoedas = 0;
+		}
+    }
 }

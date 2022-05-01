@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 5211762355497994496, guid: e6a1a1d5a663b02488b9cce1588f41b6,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -135,6 +135,7 @@ MonoBehaviour:
   velocidadePulo: 0.02
   pulando: 0
   vidas: 2
+  personagem: {fileID: 0}
 --- !u!95 &8645612933677886058
 Animator:
   serializedVersion: 4
