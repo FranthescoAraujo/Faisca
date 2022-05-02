@@ -16,6 +16,7 @@ TagManager:
   - Agua
   - Arvore
   - Bush
+  - Hit
   layers:
   - Default
   - TransparentFX

@@ -18,10 +18,14 @@ public class passaro : MonoBehaviour
 	float meuTempoDano;
 	bool podeTomarDano = true;
 	Color alpha;
+	public AudioSource Hit;
+	public AudioSource Passaro;
+
 	void Start()
 	{
 		personagem = GameObject.FindGameObjectWithTag("Personagem");
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
+		Hit = GameObject.FindGameObjectWithTag("Hit").GetComponent<AudioSource>();
 		Animacao = GetComponent<Animator>();
 		SpriteRendererPassaro = GetComponent<SpriteRenderer>();
 		PosicaoInicial = transform.position;
@@ -72,6 +76,7 @@ public class passaro : MonoBehaviour
 		{
 			if (podeTomarDano)
 			{
+				Hit.Play();
 				podeTomarDano = false;
 				Destroy(colisao.gameObject);
 				alpha = GetComponent<SpriteRenderer>().material.color;
@@ -89,6 +94,10 @@ public class passaro : MonoBehaviour
 	{
 		if (Vector2.Distance(transform.position, personagem.transform.position) <= 30f)
         {
+			if (!Passaro.isPlaying)
+			{
+				Passaro.Play();
+			}
 			Andar();
 			TempoOvo();
 			Dano();

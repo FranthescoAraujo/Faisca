@@ -18,10 +18,12 @@ public class porcoEspinho : MonoBehaviour
     private gerenciadorJogo GJ;
     bool podeTomarDano = true;
     Color alpha;
+    public AudioSource Hit;
 
     void Start()
     {
         GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
+        Hit = GameObject.FindGameObjectWithTag("Hit").GetComponent<AudioSource>();
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         SpriteRendererPorcoEspinho = GetComponent<SpriteRenderer>();
         Rigidbody2DPorcoEspinho = GetComponent<Rigidbody2D>();
@@ -89,6 +91,7 @@ public class porcoEspinho : MonoBehaviour
         {
             if (podeTomarDano)
             {
+                Hit.Play();
                 podeTomarDano = false;
                 Destroy(colisao.gameObject);
                 alpha = GetComponent<SpriteRenderer>().material.color;

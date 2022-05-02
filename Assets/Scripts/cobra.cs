@@ -20,11 +20,14 @@ public class cobra : MonoBehaviour
 	bool podeTomarDano = true;
 	Color alpha;
 	public GameObject personagem;
+	public AudioSource Hit;
+	public AudioSource Cobra;
 
 	void Start()
 	{
 		personagem = GameObject.FindGameObjectWithTag("Personagem");
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
+		Hit = GameObject.FindGameObjectWithTag("Hit").GetComponent<AudioSource>();
 		PosicaoInicial = transform.position;
 		Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
 		SpriteRendererCobra = GetComponent<SpriteRenderer>();
@@ -90,6 +93,7 @@ public class cobra : MonoBehaviour
 		{
 			if (podeTomarDano)
 			{
+				Hit.Play();
 				podeTomarDano = false;
 				Destroy(colisao.gameObject);
 				alpha = GetComponent<SpriteRenderer>().material.color;
@@ -128,6 +132,10 @@ public class cobra : MonoBehaviour
 	{
 		if (Vector2.Distance(transform.position, personagem.transform.position) <= 15f)
 		{
+			if (!Cobra.isPlaying)
+            {
+				Cobra.Play();
+			}
 			Movimento();
 			Dano();
 		}

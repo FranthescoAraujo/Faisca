@@ -20,11 +20,13 @@ public class peixe : MonoBehaviour
 	bool podeTomarDano = true;
 	Color alpha;
 	public GameObject personagem;
+	public AudioSource Hit;
 
 	void Start()
 	{
 		personagem = GameObject.FindGameObjectWithTag("Personagem");
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
+		Hit = GameObject.FindGameObjectWithTag("Hit").GetComponent<AudioSource>();
 		Animacao = GetComponent<Animator>();
 		SpriteRendererPeixe = GetComponent<SpriteRenderer>();
 		PosicaoInicial = transform.position;
@@ -94,6 +96,7 @@ public class peixe : MonoBehaviour
 		{
 			if (podeTomarDano)
             {
+				Hit.Play();
 				podeTomarDano = false;
 				Destroy(colisao.gameObject);
 				alpha = GetComponent<SpriteRenderer>().material.color;

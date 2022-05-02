@@ -14,7 +14,7 @@ public class personagem : MonoBehaviour
 	public int quantidadePulo = 0;
 	public float meuTempoPulo = 0;
 	public bool podePular = true;
-	public float ALTURA_PULO = 400f;
+	public float ALTURA_PULO = 500f;
 	public float auxCaindo = 0;
 	public float tempoAux = 0;
 	private Animator Animacao;
@@ -40,6 +40,11 @@ public class personagem : MonoBehaviour
 	public Color alpha;
 	public bool morreu = false;
 	private gerenciadorJogo GJ;
+	public AudioSource Point;
+	public AudioSource Fogo;
+	public AudioSource Hit;
+	public AudioSource Arvore;
+	public AudioSource Morte;
 
 	void Start()
 	{
@@ -54,8 +59,12 @@ public class personagem : MonoBehaviour
 
 	void Update()
 	{
-		if (GJ.EstadoJogo() == true)
+		if (GJ.EstadoJogo())
 		{
+			if (!Fogo.isPlaying)
+            {
+				Fogo.Play();
+            }
 			Mover();
 			Rotacionar();
 			Pular();
@@ -65,7 +74,9 @@ public class personagem : MonoBehaviour
 			PodeAtacar();
 			Dano();
 			Vida();
+			return;
 		}
+		Fogo.Pause();
 	}
 	void Mover()
 	{
@@ -124,20 +135,30 @@ public class personagem : MonoBehaviour
 	{
 		if (trigger.gameObject.tag == "Arvore")
         {
+			if (!Arvore.isPlaying)
+            {
+				Arvore.Play();
+			}
 			trigger.gameObject.tag = "Untagged";
 			trigger.GetComponentsInChildren<SpriteRenderer>()[0].enabled = false;
 			trigger.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
 			trigger.GetComponentInChildren<Animator>().enabled = true;
-			GJ.atualizarCorFundo();
+			GJ.AtualizarCorFundo();
+			GJ.AtualizarSom();
 		}
 		if (trigger.gameObject.tag == "Bush")
 		{
+			if (!Arvore.isPlaying)
+			{
+				Arvore.Play();
+			}
 			trigger.gameObject.tag = "Untagged";
 			trigger.GetComponentsInChildren<SpriteRenderer>()[0].enabled = false;
 			trigger.GetComponentsInChildren<Animator>()[0].enabled = false;
 			trigger.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
 			trigger.GetComponentsInChildren<Animator>()[1].enabled = true;
-			GJ.atualizarCorFundo();
+			GJ.AtualizarCorFundo();
+			GJ.AtualizarSom();
 		}
 		if (trigger.gameObject.tag == "Inimigo")
         {
@@ -157,6 +178,7 @@ public class personagem : MonoBehaviour
 			quantidadeMoedas++;
 			aumentaQuantidadeVidas();
 			MoedaTexto.text = quantidadeMoedas.ToString("000");
+			Point.Play();
 		}
 		if (trigger.gameObject.tag == "CheckPoint")
 		{
@@ -266,6 +288,7 @@ public class personagem : MonoBehaviour
 		{
 			if (podeTomarDano == true)
 			{
+				Hit.Play();
 				vidaPersonagem--;
 				podeTomarDano = false;
 				alpha = SpriteRendererPersonagem.material.color;
@@ -281,6 +304,7 @@ public class personagem : MonoBehaviour
 		{
 			if (podeTomarDano == true)
 			{
+				Hit.Play();
 				vidaPersonagem--;
 				podeTomarDano = false;
 				alpha = SpriteRendererPersonagem.material.color;
@@ -339,6 +363,10 @@ public class personagem : MonoBehaviour
 	{
 		if (!morreu)
         {
+			if (!Morte.isPlaying)
+            {
+				Morte.Play();
+			}
 			morreu = true;
 			quantidadeVidas--;
 			destruirOvos();

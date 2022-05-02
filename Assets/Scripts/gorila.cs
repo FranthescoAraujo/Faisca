@@ -16,11 +16,14 @@ public class gorila : MonoBehaviour
     bool podeTomarDano = true;
     Color alpha;
     public GameObject personagem;
+    public AudioSource Hit;
+    public AudioSource Gorila;
 
     void Start()
     {
         personagem = GameObject.FindGameObjectWithTag("Personagem");
         GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
+        Hit = GameObject.FindGameObjectWithTag("Hit").GetComponent<AudioSource>();
         Animacao = GetComponent<Animator>();
         Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
     }
@@ -67,6 +70,7 @@ public class gorila : MonoBehaviour
         {
             if (podeTomarDano)
             {
+                Hit.Play();
                 podeTomarDano = false;
                 Destroy(colisao.gameObject);
                 alpha = GetComponent<SpriteRenderer>().material.color;
@@ -105,6 +109,10 @@ public class gorila : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, personagem.transform.position) <= 35f)
         {
+            if (!Gorila.isPlaying)
+            {
+                Gorila.Play();
+            }
             TempoLancar();
             Dano();
         }
