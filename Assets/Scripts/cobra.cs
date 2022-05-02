@@ -6,6 +6,7 @@ public class cobra : MonoBehaviour
 {
 	private Rigidbody2D Rigidbody2DPersonagem;
 	public float distanciaMinima = 5.0f;
+	private float distanciaMinimaY = 1.0f;
 	private SpriteRenderer SpriteRendererCobra;
 	public float velocidade = 1f;
 	public float velocidadeProximo = 4f;
@@ -45,8 +46,6 @@ public class cobra : MonoBehaviour
 	{
 		{
 			transform.position = new Vector3(transform.position.x + velocidade * Time.deltaTime, transform.position.y, transform.position.z);
-			teste = PosicaoInicial.x + distanciaFinal;
-			teste2 = PosicaoInicial.x + distanciaInicial;
 			if (transform.position.x > (PosicaoInicial.x + distanciaFinal))
 			{
 				velocidade = -Mathf.Abs(velocidade);
@@ -77,7 +76,8 @@ public class cobra : MonoBehaviour
 
 	void Movimento()
 	{
-		if (Mathf.Abs(transform.position.x - Rigidbody2DPersonagem.transform.position.x) <= distanciaMinima)
+		if (Mathf.Abs(transform.position.x - Rigidbody2DPersonagem.transform.position.x) <= distanciaMinima 
+			&& Mathf.Abs(transform.position.y - Rigidbody2DPersonagem.transform.position.y ) <= distanciaMinimaY)
 		{
 			Perseguir();
 		}
@@ -108,7 +108,16 @@ public class cobra : MonoBehaviour
 		}
 	}
 
-	void Dano()
+    private void OnCollisionEnter2D(Collision2D colisao)
+    {
+		if (colisao.gameObject.tag == "Personagem")
+		{
+			Vector3 moveDirection = new Vector3(colisao.transform.position.x - transform.position.x, 0, 0);
+			colisao.gameObject.GetComponent<Rigidbody2D>().AddForce(moveDirection * 10000f);
+		}
+	}
+
+    void Dano()
 	{
 		if (!podeTomarDano)
 		{
@@ -138,6 +147,14 @@ public class cobra : MonoBehaviour
 			}
 			Movimento();
 			Dano();
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D trigger)
+	{
+		if (trigger.gameObject.tag == "Agua")
+		{
+			Destroy(this.gameObject);
 		}
 	}
 }

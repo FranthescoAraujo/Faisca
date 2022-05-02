@@ -318,6 +318,7 @@ public class personagem : MonoBehaviour
 			}
 		}
 	}
+
 	void TemporizadorDano()
 	{
 		meuTempoDano += Time.deltaTime;
@@ -366,18 +367,18 @@ public class personagem : MonoBehaviour
 			if (!Morte.isPlaying)
             {
 				Morte.Play();
-			}
-			morreu = true;
-			quantidadeVidas--;
-			destruirOvos();
-			VidasTexto.text = quantidadeVidas.ToString("00");
-			if (quantidadeVidas > 0)
-			{
-				Inicializar();
-			}
-			else
-			{
-				GJ.PersonagemMorreu();
+				morreu = true;
+				quantidadeVidas--;
+				destruirOvos();
+				VidasTexto.text = quantidadeVidas.ToString("00");
+				if (quantidadeVidas > 0)
+				{
+					Inicializar();
+				}
+				else
+				{
+					GJ.PersonagemMorreu();
+				}
 			}
 		}
 	}

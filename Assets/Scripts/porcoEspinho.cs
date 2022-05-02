@@ -47,6 +47,10 @@ public class porcoEspinho : MonoBehaviour
             Rigidbody2DPorcoEspinho.velocity = new Vector2(0, 0);
             PosicaoChao();
         }
+        if (trigger.gameObject.tag == "Agua")
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void Andar()
@@ -123,6 +127,15 @@ public class porcoEspinho : MonoBehaviour
             meuTempoDano = 0;
             alpha.a = 1f;
             GetComponent<SpriteRenderer>().material.color = alpha;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D colisao)
+    {
+        if (colisao.gameObject.tag == "Personagem")
+        {
+            Vector3 moveDirection = new Vector3(colisao.transform.position.x - transform.position.x, 0, 0);
+            colisao.gameObject.GetComponent<Rigidbody2D>().AddForce(moveDirection * 3000f);
         }
     }
 }

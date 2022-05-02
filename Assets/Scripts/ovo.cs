@@ -94,6 +94,10 @@ public class ovo : MonoBehaviour
 			noChao = true;
 			Animacao.SetBool("Girando", true);
 		}
+		if (trigger.gameObject.tag == "Agua")
+		{
+			Destroy(this.gameObject);
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D trigger)
