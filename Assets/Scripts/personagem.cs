@@ -45,6 +45,8 @@ public class personagem : MonoBehaviour
 	public AudioSource Hit;
 	public AudioSource Arvore;
 	public AudioSource Morte;
+	public AudioSource VidaSound;
+	public AudioSource Checkpoint;
 
 	void Start()
 	{
@@ -143,8 +145,13 @@ public class personagem : MonoBehaviour
 			trigger.GetComponentsInChildren<SpriteRenderer>()[0].enabled = false;
 			trigger.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
 			trigger.GetComponentInChildren<Animator>().enabled = true;
-			GJ.AtualizarCorFundo();
+			GJ.AtualizarCor();
 			GJ.AtualizarSom();
+			GJ.AtualizarSaturation();
+			GJ.AtualizarAzul();
+			GJ.AtualizarAberration();
+			GJ.AtualizarExposure();
+			GJ.AtualizarFog();
 		}
 		if (trigger.gameObject.tag == "Bush")
 		{
@@ -157,10 +164,15 @@ public class personagem : MonoBehaviour
 			trigger.GetComponentsInChildren<Animator>()[0].enabled = false;
 			trigger.GetComponentsInChildren<SpriteRenderer>()[1].enabled = true;
 			trigger.GetComponentsInChildren<Animator>()[1].enabled = true;
-			GJ.AtualizarCorFundo();
+			GJ.AtualizarCor();
 			GJ.AtualizarSom();
+			GJ.AtualizarSaturation();
+			GJ.AtualizarAzul();
+			GJ.AtualizarAberration();
+			GJ.AtualizarExposure();
+			GJ.AtualizarFog();
 		}
-		if (trigger.gameObject.tag == "Inimigo")
+		if (trigger.gameObject.tag == "Inimigo" || trigger.gameObject.tag == "Boss")
         {
 			quantidadePulo = 0;
 			meuTempoPulo = 0;
@@ -182,6 +194,7 @@ public class personagem : MonoBehaviour
 		}
 		if (trigger.gameObject.tag == "CheckPoint")
 		{
+			Checkpoint.Play();
 			if (atualCheckPoint < trigger.gameObject.GetComponent<checkPoint>().ponto)
 			{
 				atualCheckPoint = trigger.gameObject.GetComponent<checkPoint>().ponto;
@@ -192,6 +205,13 @@ public class personagem : MonoBehaviour
 			{
 				Destroy(trigger.gameObject);
 			}
+		}
+		if (trigger.gameObject.tag == "Vida")
+        {
+			VidaSound.Play();
+			quantidadeVidas += 1;
+			VidasTexto.text = quantidadeVidas.ToString("00");
+			Destroy(trigger.gameObject);
 		}
 		if (trigger.gameObject.tag == "Agua")
 		{
@@ -284,7 +304,7 @@ public class personagem : MonoBehaviour
 
 	void OnCollisionStay2D(Collision2D colisao)
 	{
-		if (colisao.gameObject.tag == "Inimigo")
+		if (colisao.gameObject.tag == "Inimigo" || colisao.gameObject.tag == "Boss")
 		{
 			if (podeTomarDano == true)
 			{
@@ -310,12 +330,12 @@ public class personagem : MonoBehaviour
 				alpha = SpriteRendererPersonagem.material.color;
 				alpha.a = 0.5f;
 				SpriteRendererPersonagem.material.color = alpha;
-				Destroy(colisao.gameObject);
 				if (vidaPersonagem <= 0)
 				{
 					Morrer();
 				}
 			}
+			Destroy(colisao.gameObject);
 		}
 	}
 
@@ -402,6 +422,7 @@ public class personagem : MonoBehaviour
     {
 		if (quantidadeMoedas >= 100)
         {
+			VidaSound.Play();
 			quantidadeVidas += 1;
 			VidasTexto.text = quantidadeVidas.ToString("00");
 			quantidadeMoedas = 0;

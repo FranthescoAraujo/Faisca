@@ -140,13 +140,4 @@ public class peixe : MonoBehaviour
 			Dano();
 		}
 	}
-
-	private void OnCollisionEnter2D(Collision2D colisao)
-	{
-		if (colisao.gameObject.tag == "Personagem")
-		{
-			Vector3 moveDirection = new Vector3(colisao.transform.position.x - transform.position.x, 0, 0);
-			colisao.gameObject.GetComponent<Rigidbody2D>().AddForce(moveDirection * 3000f);
-		}
-	}
 }

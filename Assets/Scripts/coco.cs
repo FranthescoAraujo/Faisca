@@ -24,4 +24,12 @@ public class coco : MonoBehaviour
 		velocidadeCoco.y = ((Rigidbody2DPersonagem.position.y + Random.Range(-1.0f, 1.0f) * variacao) - Rigidbody2DCoco.position.y - (gravidade * Mathf.Pow(tempo, 2) / 2)) / tempo;
 		Rigidbody2DCoco.velocity = velocidadeCoco;
 	}
+
+	void OnTriggerEnter2D(Collider2D trigger)
+	{
+		if (trigger.gameObject.tag == "Agua")
+		{
+			Destroy(this.gameObject);
+		}
+	}
 }

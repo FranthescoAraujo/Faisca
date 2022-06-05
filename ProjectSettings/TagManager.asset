@@ -17,11 +17,14 @@ TagManager:
   - Arvore
   - Bush
   - Hit
+  - Fog
+  - Boss
+  - Vida
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Camera
   - Water
   - UI
   - 

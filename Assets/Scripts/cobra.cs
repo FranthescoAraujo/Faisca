@@ -108,15 +108,6 @@ public class cobra : MonoBehaviour
 		}
 	}
 
-    private void OnCollisionEnter2D(Collision2D colisao)
-    {
-		if (colisao.gameObject.tag == "Personagem")
-		{
-			Vector3 moveDirection = new Vector3(colisao.transform.position.x - transform.position.x, 0, 0);
-			colisao.gameObject.GetComponent<Rigidbody2D>().AddForce(moveDirection * 10000f);
-		}
-	}
-
     void Dano()
 	{
 		if (!podeTomarDano)
