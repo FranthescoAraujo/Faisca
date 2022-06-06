@@ -5,11 +5,16 @@ using TMPro;
 
 public class final : MonoBehaviour
 {
-    private string texto = "O que é o Lorem Ipsum? \n " + 
-                           "O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. " + 
-                           "O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500, " + 
-                           "quando uma misturou os caracteres de um texto para criar um espécime de livro.Este texto não só sobreviveu 5 séculos, " + 
-                           "mas também o salto para a tipografia electrónica, mantendo-se essencialmente inalterada.";
+    private string texto = "VOCÊ VENCEU...\n" +
+                           "Porém, o oxigênio acabou e a temperatura da terra aumentou, " +
+                           "todas as árvores e animais morreram. \n " + 
+                           "Nosso planeta se tornou inabitável. \n" +
+                           ".\n" +
+                           ".\n" +
+                           ".\n" +
+                           "Proteja nossas florestas, a sobrevivência da raça humana depende disso.\n" +
+                           "\n" +
+                           "Diga não as queimadas. ";
     private string mostrarTexto;
     public TMP_Text tmpText;
     public AudioSource pressSpace;
