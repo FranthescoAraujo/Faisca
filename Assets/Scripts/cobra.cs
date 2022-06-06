@@ -5,24 +5,22 @@ using UnityEngine;
 public class cobra : MonoBehaviour
 {
 	private Rigidbody2D Rigidbody2DPersonagem;
-	public float distanciaMinima = 5.0f;
+	private float distanciaMinima = 5.0f;
 	private float distanciaMinimaY = 1.0f;
 	private SpriteRenderer SpriteRendererCobra;
-	public float velocidade = 1f;
-	public float velocidadeProximo = 4f;
-	public float distanciaInicial = -2.0f;
-	public float distanciaFinal = 2.0f;
-	public Vector3 PosicaoInicial;
-	public float teste = 0;
-	public float teste2 = 0;
+	private float velocidade = 1f;
+	private float velocidadeProximo = 4f;
+	private float distanciaInicial = -2.0f;
+	private float distanciaFinal = 2.0f;
+	private Vector3 PosicaoInicial;
 	private gerenciadorJogo GJ;
-	public int vidas = 3;
-	float meuTempoDano;
-	bool podeTomarDano = true;
-	Color alpha;
-	public GameObject personagem;
-	public AudioSource Hit;
-	public AudioSource Cobra;
+	private int vidas = 3;
+	private float meuTempoDano;
+	private bool podeTomarDano = true;
+	private Color alpha;
+	private GameObject personagem;
+	private AudioSource Hit;
+	private AudioSource Cobra;
 
 	void Start()
 	{
@@ -30,7 +28,7 @@ public class cobra : MonoBehaviour
 		GJ = GameObject.FindGameObjectWithTag("GameController").GetComponent<gerenciadorJogo>();
 		Hit = GameObject.FindGameObjectWithTag("Hit").GetComponent<AudioSource>();
 		PosicaoInicial = transform.position;
-		Rigidbody2DPersonagem = GameObject.FindGameObjectWithTag("Personagem").GetComponent<Rigidbody2D>();
+		Rigidbody2DPersonagem = personagem.GetComponent<Rigidbody2D>();
 		SpriteRendererCobra = GetComponent<SpriteRenderer>();
 	}
 

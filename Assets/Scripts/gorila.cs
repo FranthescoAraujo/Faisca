@@ -44,6 +44,7 @@ public class gorila : MonoBehaviour
             {
                 Vector3 posicaoCoco = new Vector3(transform.position.x + 0.8f, transform.position.y + 0.8f, transform.position.z);
                 GameObject LancarCoco = Instantiate(Coco, posicaoCoco, Quaternion.identity);
+                Destroy(LancarCoco, 5f);
             }
         }
     }

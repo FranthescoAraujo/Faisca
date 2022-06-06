@@ -17,7 +17,6 @@ public class ovo : MonoBehaviour
 	public float timePerseguir;
 	public bool noChao = false;
 	private Animator Animacao;
-	private float velocidadeMaxima = -6f;
 
 	void Start()
 	{
@@ -39,7 +38,7 @@ public class ovo : MonoBehaviour
 		}
         else
         {
-			Rigidbody2DOvo.velocity = new Vector2(Rigidbody2DOvo.velocity.x, velocidadeMaxima);
+			VelocidadeQueda();
         }
 	}
 
@@ -105,6 +104,14 @@ public class ovo : MonoBehaviour
 		if (trigger.gameObject.tag == "Ground")
 		{
 			Destroy(this.gameObject);
+		}
+	}
+
+	private void VelocidadeQueda()
+	{
+		if (Rigidbody2DOvo.velocity.y < -6f)
+		{
+			Rigidbody2DOvo.velocity = new Vector2(Rigidbody2DOvo.velocity.x, -6f);
 		}
 	}
 }

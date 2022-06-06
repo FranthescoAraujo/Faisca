@@ -9,7 +9,7 @@ public class personagem : MonoBehaviour
 {
 	public Rigidbody2D Rigidbody2DPersonagem;
 	public float velocidade;
-	public float VELOCIDADE_MOVIMENTO = 500f;
+	private float velocidadeMovimento = 250f;
 	public SpriteRenderer SpriteRendererPersonagem;
 	public int quantidadePulo = 0;
 	public float meuTempoPulo = 0;
@@ -67,6 +67,7 @@ public class personagem : MonoBehaviour
             {
 				Fogo.Play();
             }
+			VelocidadeQueda();
 			Mover();
 			Rotacionar();
 			Pular();
@@ -82,7 +83,7 @@ public class personagem : MonoBehaviour
 	}
 	void Mover()
 	{
-		velocidade = Input.GetAxis("Horizontal") * VELOCIDADE_MOVIMENTO * Time.deltaTime;
+		velocidade = Input.GetAxis("Horizontal") * velocidadeMovimento * Time.deltaTime;
 		Rigidbody2DPersonagem.velocity = new Vector2(velocidade, Rigidbody2DPersonagem.velocity.y);
 		if (velocidade != 0)
 		{
@@ -426,6 +427,14 @@ public class personagem : MonoBehaviour
 			quantidadeVidas += 1;
 			VidasTexto.text = quantidadeVidas.ToString("00");
 			quantidadeMoedas = 0;
+		}
+    }
+
+	private void VelocidadeQueda()
+    {
+		if (Rigidbody2DPersonagem.velocity.y < -10f)
+        {
+			Rigidbody2DPersonagem.velocity = new Vector2(Rigidbody2DPersonagem.velocity.x, -10f);
 		}
     }
 }
