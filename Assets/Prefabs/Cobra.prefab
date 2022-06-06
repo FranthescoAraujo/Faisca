@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5bce51fb641563499011866e5424346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanciaInicial: -2
+  distanciaFinal: 2
 --- !u!82 &1831564987543423958
 AudioSource:
   m_ObjectHideFlags: 0
@@ -264,4 +266,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
