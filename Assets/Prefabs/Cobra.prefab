@@ -122,16 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5bce51fb641563499011866e5424346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanciaMinima: 5
-  velocidade: 1
-  velocidadeProximo: 4
-  distanciaInicial: -2
-  distanciaFinal: 2
-  PosicaoInicial: {x: 0, y: 0, z: 0}
-  vidas: 3
-  personagem: {fileID: 0}
-  Hit: {fileID: 0}
-  Cobra: {fileID: 1831564987543423958}
 --- !u!82 &1831564987543423958
 AudioSource:
   m_ObjectHideFlags: 0
