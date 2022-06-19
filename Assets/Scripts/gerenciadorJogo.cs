@@ -51,6 +51,7 @@ public class gerenciadorJogo : MonoBehaviour
                     isEscrevento = true;
                     ColorGrading.saturation.value = -100f;
                     TelaFinal.SetActive(true);
+                    personagem.Imobilizar();
                     InvokeRepeating("Escrever", 0f, 0.1f);
                 }
             }

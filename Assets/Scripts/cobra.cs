@@ -15,7 +15,7 @@ public class cobra : MonoBehaviour
 	public float distanciaFinal = 2.0f;
 	private Vector3 PosicaoInicial;
 	private gerenciadorJogo GJ;
-	private int vidas = 3;
+	private int vidas = 2;
 	private float meuTempoDano;
 	private bool podeTomarDano = true;
 	private Color alpha;

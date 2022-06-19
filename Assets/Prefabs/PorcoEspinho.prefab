@@ -163,7 +163,8 @@ MonoBehaviour:
   distanciaFinal: 2
   distanciaInicial: -2
   velocidadeX: 5
-  vidas: 4
+  vidas: 3
+  Hit: {fileID: 0}
 --- !u!95 &2971555050955024843
 Animator:
   serializedVersion: 4

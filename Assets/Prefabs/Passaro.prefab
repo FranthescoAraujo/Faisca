@@ -134,7 +134,7 @@ MonoBehaviour:
   tempo: 0
   Ovo: {fileID: 9064397072610313486, guid: 21c995a9f2f857c4992da0a3f52eb0c4, type: 3}
   personagem: {fileID: 0}
-  vidas: 2
+  vidas: 1
   Hit: {fileID: 0}
   Passaro: {fileID: 765236350444866685}
 --- !u!95 &266865577146815515

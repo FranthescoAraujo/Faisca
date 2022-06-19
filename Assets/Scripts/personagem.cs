@@ -437,4 +437,10 @@ public class personagem : MonoBehaviour
 			Rigidbody2DPersonagem.velocity = new Vector2(Rigidbody2DPersonagem.velocity.x, -10f);
 		}
     }
+
+
+	public void Imobilizar()
+    {
+		Rigidbody2DPersonagem.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
 }
