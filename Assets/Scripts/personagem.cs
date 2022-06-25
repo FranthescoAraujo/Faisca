@@ -9,7 +9,7 @@ public class personagem : MonoBehaviour
 {
 	public Rigidbody2D Rigidbody2DPersonagem;
 	public float velocidade;
-	private float velocidadeMovimento = 250f;
+	private float velocidadeMovimento = 350f;
 	public SpriteRenderer SpriteRendererPersonagem;
 	public int quantidadePulo = 0;
 	public float meuTempoPulo = 0;

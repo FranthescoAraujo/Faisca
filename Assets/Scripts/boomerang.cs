@@ -9,7 +9,7 @@ public class boomerang : MonoBehaviour
     public Rigidbody2D Rigidbody2DBoomerang;
     public Vector3 posicao;
     public Vector3 mouse;
-    public float velocidade = 10.0f;
+    public float velocidade = 15.0f;
     public float velocidadeX = 0;
     public float velocidadeY = 0;
     private Rigidbody2D Rigidbody2DPersonagem;

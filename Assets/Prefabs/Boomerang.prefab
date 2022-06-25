@@ -175,7 +175,7 @@ MonoBehaviour:
   Rigidbody2DBoomerang: {fileID: 398586837508512284}
   posicao: {x: 0, y: 0, z: 0}
   mouse: {x: 0, y: 0, z: 0}
-  velocidade: 10
+  velocidade: 15
   velocidadeX: 0
   velocidadeY: 0
   isVolta: 0
